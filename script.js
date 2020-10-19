@@ -1,7 +1,16 @@
 let all1Bids = [];
 let all2Bids = [];
+let totalBids = [];
+let highestTotalBid = totalBids[0] || [];
 
-
+function findHighest(totalBids) {
+    let number = null;
+    for (let i = 0; i < totalBids.length; i++) {
+        number = totalBids[i];
+        highestTotalBid = Math.max(highestTotalBid, number);
+    }
+    return highestTotalBid
+}
 
 function addTotalBids() {
     let totalBids = [];
@@ -28,6 +37,15 @@ function user2Bids() {
     console.log(all2Bids);
     document.getElementById("user2Bids").value = '';
     addTotalBids();
-
-
 }
+
+function localStorageSave() {
+    localStorage.setItem("highestTotalBid", JSON.stringify(highestTotalBid));
+}
+
+function localStorageGet() {
+    let dataGet = JSON.parse(localStorage.getItem("highestTotalBid"));
+    highestTotalBid.push(dataGet);
+    document.getElementById('totalBid').innerHTML = '$ ' + highestTotalBid;
+}
+localStorageGet();
